@@ -5,7 +5,7 @@ def index
 end
 
 def show
-  @chord = Chord.find([params[:id])
+  @chord = Chord.find(params[:id])
 
 end
 
@@ -14,7 +14,7 @@ def new
 end
 
 def edit
-  @chord = Chord.find([params[:id])
+  @chord = Chord.find(params[:id])
 end
 
 def create
@@ -28,7 +28,7 @@ end
 
 def update
   @chord = Chord.find(params[:id])
-  if @chord.update
+  if @chord.update(chord_params)
     redirect_to @chord
   else
     render 'edit'
@@ -36,14 +36,14 @@ def update
 end
 
 def destroy
-  @chord = Chord.find([params[:id])
+  @chord = Chord.find(params[:id])
   @chord.destroy
   redirect_to chords_path
 end
 
 private
   def chord_params
-    params(:chord).require(:type,:voices,:)
+    params(:chord).require(:type,:voices)
   end
 
 end
