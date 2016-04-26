@@ -1,9 +1,11 @@
 <%= form_for @chord do |f| %>
-<%= f.label :voices %>
-<%= f.text_field :voices %>
 
-<%= %>
+<%= f.label :root_note %>
+<%= f.text_field :root_note %>
 
+<%= f.label :quality %>
+<%= f.text_field :quality %>
 
 <%= f.submit %>
+
 <%end%>
