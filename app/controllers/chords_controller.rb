@@ -6,7 +6,7 @@ end
 
 def show
   @chord = Chord.find(params[:id])
-
+  # binding.pry
 end
 
 def new
@@ -18,15 +18,17 @@ def edit
 end
 
 def create
-  @chord = Chord.new
-  starting_note = params[:root_note]
-  quality = params[:quality]
-  @chord.construct_chord(starting_note, quality)
+  @chord = Chord.new(chord_params)
+
   if @chord.save
+
+    @chord.construct_chord
     redirect_to @chord
+
   else
     render 'new'
   end
+
 end
 
 def update
@@ -46,7 +48,7 @@ end
 
 private
   def chord_params
-    params(:chord).require(:quality,:voices,:root_note)
+    params.require(:chord).permit(:root_note, :quality)
   end
 
 end
