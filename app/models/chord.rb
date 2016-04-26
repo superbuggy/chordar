@@ -7,62 +7,31 @@ class Chord < ActiveRecord::Base
 
 
   def construct_chord
-    first_tone_index = Note.tones.index(self.root_note)
+    note_indexes_for_building_chord = []
+    note_indexes_for_building_chord.push( Note.tones.index(self.root_note) )
     if self.quality == "major"
 
-      second_tone_index = (first_tone_index + 4) % 12
-
-      third_tone_index = (first_tone_index + 7) % 12
-
-      Note.create( name: Note.tones[first_tone_index],
-                   letter: Note.tones[first_tone_index][0],
-                   accidental: Note.tones[first_tone_index][1],
-                   octave: -1,
-                   pitch: 0,
-                   chord_id: self.id
-      )
-      Note.create( name: Note.tones[second_tone_index],
-                   letter: Note.tones[second_tone_index][0],
-                   accidental: Note.tones[second_tone_index][1],
-                   octave: -1,
-                   pitch: 0,
-                   chord_id: self.id
-      )
-      Note.create( name: Note.tones[third_tone_index],
-                   letter: Note.tones[third_tone_index][0],
-                   accidental: Note.tones[third_tone_index][1],
-                   octave: -1,
-                   pitch: 0,
-                   chord_id: self.id
-      )
+      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 4) % 12)
+      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 3) % 12)
 
     elsif self.quality == "minor"
 
-      second_tone_index = (first_tone_index + 3) % 12
-      third_tone_index = (first_tone_index + 7) % 12
-      Note.create( name: Note.tones[first_tone_index],
-                   letter: Note.tones[first_tone_index][0],
-                   accidental: Note.tones[first_tone_index][1],
-                   octave: -1,
-                   pitch: 0,
-                   chord_id: self.id
-      )
-      Note.create( name: Note.tones[second_tone_index],
-                   letter: Note.tones[second_tone_index][0],
-                   accidental: Note.tones[second_tone_index][1],
-                   octave: -1,
-                   pitch: 0,
-                   chord_id: self.id
-      )
-      Note.create( name: Note.tones[third_tone_index],
-                   letter: Note.tones[third_tone_index][0],
-                   accidental: Note.tones[third_tone_index][1],
-                   octave: -1,
-                   pitch: 0,
-                   chord_id: self.id
-      )
+      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 3) % 12)
+      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 4) % 12)
 
     end
+
+    note_indexes_for_building_chord.each do |note_index|
+
+            Note.create( name: Note.tones[note_index],
+                         letter: Note.tones[note_index][0],
+                         accidental: Note.tones[note_index][1],
+                         octave: -1,
+                         pitch: 0,
+                         chord_id: self.id
+            )
+    end
+
 
   end
 
