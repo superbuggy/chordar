@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-c_maj_chord = Chord.create!( voices:3, type:"Major" )
+c_maj_chord = Chord.create!( voices:3, quality:"major" )
 
 c_maj_note1 = Note.create!(name:"C", letter:"C" ,accidental:"", octave:4, pitch:0, chord_id: c_maj_chord.id )
 c_maj_note2 = Note.create!(name:"E",letter:"E",accidental:"", octave:4, pitch:0, chord_id: c_maj_chord.id )
