@@ -7,22 +7,31 @@ class Chord < ActiveRecord::Base
 
 
   def construct_chord
+
+    starting_note_index = Note.tones.index( self.root_note )
     note_indexes_for_building_chord = []
-    note_indexes_for_building_chord.push( Note.tones.index(self.root_note) )
+    note_indexes_for_building_chord.push( starting_note_index )
+
     if self.quality == "major"
-
-      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 4) % 12)
-      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 3) % 12)
-
+      semitones_from_root = [4, 7]
     elsif self.quality == "minor"
+      semitones_from_root = [3, 7]
+    elsif self.quality == "major7"
+      semitones_from_root = [4, 7, 11]
+    elsif self.quality == "minor7"
+      semitones_from_root = [3, 7, 10]
+    elsif self.quality == "dom7"
+      semitones_from_root = [4, 7, 10]
+    elsif self.quality == "minmaj7"
+      semitones_from_root = [3, 7, 11]
+    end
 
-      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 3) % 12)
-      note_indexes_for_building_chord.push( (note_indexes_for_building_chord.last + 4) % 12)
-
+    semitones_from_root.each do |voice_halfsteps|
+      next_voice = ( voice_halfsteps + starting_note_index ) % 12
+      note_indexes_for_building_chord.push( next_voice )
     end
 
     note_indexes_for_building_chord.each do |note_index|
-
             Note.create( name: Note.tones[note_index],
                          letter: Note.tones[note_index][0],
                          accidental: Note.tones[note_index][1],
