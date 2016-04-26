@@ -18,7 +18,10 @@ def edit
 end
 
 def create
-  @chord = Chord.new(chord_params)
+  @chord = Chord.new
+  starting_note = params[:root_note]
+  quality = params[:quality]
+  @chord.construct_chord(starting_note, quality)
   if @chord.save
     redirect_to @chord
   else
@@ -43,7 +46,7 @@ end
 
 private
   def chord_params
-    params(:chord).require(:type,:voices)
+    params(:chord).require(:quality,:voices,:root_note)
   end
 
 end
