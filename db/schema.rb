@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425135510) do
+ActiveRecord::Schema.define(version: 20160425204454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,10 @@ ActiveRecord::Schema.define(version: 20160425135510) do
   create_table "chords", force: :cascade do |t|
     t.integer  "voices"
     t.string   "quality"
-    t.integer  "note_id"
+    t.string   "root_note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "chords", ["note_id"], name: "index_chords_on_note_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.string   "name"
@@ -32,9 +30,9 @@ ActiveRecord::Schema.define(version: 20160425135510) do
     t.string   "accidental"
     t.integer  "octave"
     t.decimal  "pitch"
+    t.integer  "chord_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "chords", "notes"
 end
