@@ -1,0 +1,6 @@
+<p>
+  <%= "#{@chord.root_note} #{@chord.quality} contains:" %>
+  <% @chord.notes.each do |note| %>
+  <%= "#{note.name} " %>
+  <% end %>
+</p>
