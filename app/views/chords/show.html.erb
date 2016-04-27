@@ -1,6 +1,14 @@
-<p>
-  <%= "#{@chord.root_note} #{@chord.quality} contains:" %>
-  <% @chord.notes.each do |note| %>
-  <%= "#{note.name} " %>
-  <% end %>
-</p>
+<h2><%= "#{@chord.root_note} #{@chord.quality}" %></h2>
+<nav>
+    <%= link_to "View Notes", notes_path %>
+    <%= link_to "View Chords", chords_path %>
+</nav>
+
+<div>
+  <%= "#{@chord.root_note} #{@chord.quality} has #{@chord.voices} voices (or notes), each listed below." %>
+  <p>
+    <% @chord.notes.each do |note| %>
+    <%= link_to "#{note.name}", note_path(note) %>
+    <% end %>
+  </p>
+</div>
