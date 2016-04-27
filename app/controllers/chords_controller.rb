@@ -1,7 +1,7 @@
 class ChordsController < ApplicationController
 
 def index
-  @chords = Chord.all
+  @chords = Chord.where.not(quality: "dodecaphonic")
 end
 
 def show
