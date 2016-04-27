@@ -13,24 +13,23 @@ def new
   @chord = Chord.new
 end
 
+# TODO add ability to edit chords
 def edit
   @chord = Chord.find(params[:id])
 end
 
 def create
   @chord = Chord.new(chord_params)
-
   if @chord.save
-
+    #calls model method to instantiate notes of a chord
     @chord.construct_chord
     redirect_to @chord
-
   else
     render 'new'
   end
-
 end
 
+# TODO add ability to edit chords
 def update
   @chord = Chord.find(params[:id])
   if @chord.update(chord_params)
