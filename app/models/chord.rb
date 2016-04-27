@@ -1,3 +1,5 @@
+# will only construct chords using sharps! see note.rb comments for detailed
+# explanation
 class Chord < ActiveRecord::Base
   has_many :notes
 
