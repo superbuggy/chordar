@@ -6,7 +6,7 @@ class Chord < ActiveRecord::Base
   end
 
   # each chord type, represented in the string and the corresponding number
-  # of half-steps, relative to the root, for each upper voice
+  # of half-steps, relative to the root, for each voice of the chord
   def self.schemata
     {
       "major" =>      [4, 7],
@@ -20,21 +20,25 @@ class Chord < ActiveRecord::Base
     }
   end
 
-  #this method is to be called after a chord has been saved, and creates Note
-  #objects that make up the chord
+  # this method is to be called after a chord has been saved, and creates Note
+  # objects that make up the chord
   def construct_chord
-
+    # gets starting note and pushes its index (relative to Note.tones)
+    # to an array used to build the chord
     starting_note_index = Note.tones.index( self.root_note )
     note_indexes_for_building_chord = []
     note_indexes_for_building_chord.push( starting_note_index )
 
+    # semitones_from_root gets the relevant chord schema, sums in modulo 12 in
+    # the variable next_voice, and is then pushed to the array used to build
+    # the notes of the chord
     semitones_from_root = Chord.schemata[ self.quality ]
-
     semitones_from_root.each do |voice_halfsteps|
       next_voice = ( voice_halfsteps + starting_note_index ) % 12
       note_indexes_for_building_chord.push( next_voice )
     end
 
+    # instantiates the notes using
     note_indexes_for_building_chord.each do |note_index|
             Note.create( name: Note.tones[note_index],
                          letter: Note.tones[note_index][0],
