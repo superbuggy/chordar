@@ -13,3 +13,53 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+a:link {
+  color: rgb(255, 255, 255);
+}
+
+a:visited {
+  color: rgb(155, 155, 155);
+}
+
+a:active {
+  color: rgb(255, 205, 0);
+}
+
+a:hover {
+  color: rgb(255, 255, 150);
+}
+
+select, input {
+  font-family: Fondamento, monospace;
+  background-color: black;
+  color:white;
+}
+
+input {
+
+}
+
+ p, div, span, nav, header, h2, h4, form {
+   text-align: center;
+   font-family: Fondamento, monospace;
+   font-size: 200%;
+ }
+
+ p, div, span, nav, header {
+   font-size: 18px;
+ }
+
+ .delete {
+   font-size: 80%;
+ }
+
+ .embiggen {
+   font-size: 110%;
+   font-style: italic;
+ }
