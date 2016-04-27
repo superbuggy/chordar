@@ -5,4 +5,5 @@ class Note < ActiveRecord::Base
     ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
   end
 
+  #middle c is note 60
 end
