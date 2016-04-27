@@ -1,10 +1,15 @@
+<h2>Create a New Chord</h2>
+<p>
 <%= form_for @chord do |f| %>
 
-  <%= f.label :root_note %>
-  <%= f.text_field :root_note %>
+  <% notes_array = Note.tones.map { |note| [ note, note ] } %>
+  <%= f.select( :root_note, options_for_select(notes_array)) %>
 
-  <%= f.label :quality %>
-  <%= f.text_field :quality %>
+  <% chord_qualities_for_select = [ ["major","major"],   ["minor","minor"], ["major7","major7"],
+                                    ["minor7","minor7"], ["dom7","dom7"],   ["min-maj7","min-maj7"] ]  %>
+  <%= f.select( :quality, options_for_select(chord_qualities_for_select) ) %>
+
 
   <%= f.submit %>
 <%end%>
+</p>
