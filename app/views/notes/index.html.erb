@@ -1,0 +1,9 @@
+<h2> Notes </h2>
+<nav>
+    <%= link_to "View Chords", chords_path %>
+</nav>
+<p>
+  <% @notes.each do |note| %>
+  <%= link_to "#{note.name}", note_path(note) %>
+  <% end %>
+</p>
