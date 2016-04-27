@@ -1,12 +1,56 @@
-<% @chords.each do |chord| %>
+<h2>Chords</h2>
 
-<p>
+<nav>
+  <%= link_to "View Notes", notes_path %> 
+  <%= link_to "Build a new Chord", new_chord_path %>
+</nav>
 
-  <%= "#{chord.root_note} #{chord.quality} contains:" %>
+<div>
 
-  <% chord.notes.each do |note| %>
-    <%= "#{note.name} " %>
+  <h4>Recent chords:</h4>
+
+  <% @chords.reverse.each do |chord| %>
+  <p>
+    <%= link_to "#{chord.root_note} #{chord.quality}", chord_path(chord) %>
+
+     contains the notes:
+
+    <% chord.notes.each do |note| %>
+      <%= link_to "#{note.name}", note_path(note) %>
+    <% end %>
+
+    <br>
+
+    <span class = "delete">
+      [<%= link_to "Remove from recent chords", chord_path(chord),
+      method: :delete,
+      data: { confirm: 'Are you sure?' } %>]
+    </span>
+
+  </p>
   <% end %>
 
-</p>
-<% end %>
+</div>
+
+<div>
+  <h4>Types of Chords</h4>
+  <% Chord.schemata.keys.each do |chord_quality| %>
+
+  <p>
+    <span class = "embiggen">
+      <%= "#{chord_quality}:" %>
+    </span>
+
+    root note,
+
+    <% Chord.schemata[chord_quality].each do |num_semitones| %>
+      <% if num_semitones == Chord.schemata[chord_quality].last %>
+        <%= "#{num_semitones} half-steps from the root " %>
+      <% else %>
+        <%= "#{num_semitones} half-steps from the root, " %>
+      <% end %>
+    <% end %>
+  </p>
+
+  <% end %>
+</div>
