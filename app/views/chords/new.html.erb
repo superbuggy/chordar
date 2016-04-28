@@ -5,10 +5,8 @@
   <% notes_array = Note.tones.map { |note| [ note, note ] } %>
   <%= f.select( :root_note, options_for_select(notes_array)) %>
 
-  <% chord_qualities_for_select = [ ["major","major"],   ["minor","minor"], ["major7","major7"],
-                                    ["minor7","minor7"], ["dom7","dom7"],   ["min-maj7","min-maj7"] ]  %>
+  <% chord_qualities_for_select = Chord.schemata.keys.map { |schema| [ schema, schema ] } %>
   <%= f.select( :quality, options_for_select(chord_qualities_for_select) ) %>
-
 
   <%= f.submit %>
 <%end%>
