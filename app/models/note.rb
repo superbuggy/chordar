@@ -12,7 +12,10 @@ class Note < ActiveRecord::Base
   # TODO implement flats!
   # TODO implement math for generating a pitch in Hz
   # TODO implement octave functionality
-  
+  ## see comments in chord.rb on my thoughts about this.
+  # I think this sort of thing will solve itself once you flesh out more of this application.
+  # IE if you have a notes pitch/frequency you can just have a gigantic hash that maps frequency.
+  # Or better yet an algorithim that takes a frequencey and generates all of the other properties
   def self.tones
     ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
   end
