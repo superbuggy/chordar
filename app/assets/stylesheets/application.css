@@ -63,3 +63,7 @@ input {
    font-size: 110%;
    font-style: italic;
  }
+
+.embiggen-form {
+  font-size: 200%;
+}
