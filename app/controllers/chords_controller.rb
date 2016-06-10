@@ -6,7 +6,6 @@ end
 
 def show
   @chord = Chord.find(params[:id])
-  # binding.pry
 end
 
 def new
