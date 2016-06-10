@@ -12,7 +12,7 @@ class Note < ActiveRecord::Base
   # TODO implement flats!
   # TODO implement math for generating a pitch in Hz
   # TODO implement octave functionality
-  
+
   def self.tones
     ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
   end
