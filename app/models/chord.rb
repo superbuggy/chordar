@@ -7,12 +7,16 @@ class Chord < ActiveRecord::Base
     self.notes.length
   end
 
-  def self.letter_names
-    ["C", "D", "E", "F", "G", "A", "B"]
-  end
-
-  def self.ionian_scale
-    [0, 2, 4, 5, 7, 9, 11]
+  def self.letter_tones
+    {
+      "C" => 0,
+      "D" => 2,
+      "E" => 4,
+      "F" => 5,
+      "G" => 7,
+      "A" => 9,
+      "B" => 11
+    }
   end
 
   # each chord type, represented in the string and the corresponding number
@@ -33,7 +37,7 @@ class Chord < ActiveRecord::Base
   # this method is to be called after a chord has been saved, and creates Note
   # objects that make up the chord
   def construct_chord
-    
+
   end
 
 end

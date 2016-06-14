@@ -2,7 +2,7 @@
 <p>
 <%= form_for @chord do |f| %>
 
-  <% notes_array = Note.tones.map { |note| [ note, note ] } %>
+  <% notes_array = Note.tone_book.keys.map { |note| [ note, note ] } %>
   <%= f.select( :root_note, options_for_select(notes_array), {},
       { :class => "embiggen-form" } ) %>
 
