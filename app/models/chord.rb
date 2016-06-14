@@ -11,7 +11,7 @@ class Chord < ActiveRecord::Base
     ["C", "D", "E", "F", "G", "A", "B"]
   end
 
-  def self.scale
+  def self.ionian_scale
     [0, 2, 4, 5, 7, 9, 11]
   end
 
