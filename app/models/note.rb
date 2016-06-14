@@ -1,20 +1,24 @@
 class Note < ActiveRecord::Base
   belongs_to :chord
 
-  # the 'lexis' of notes; notice here that there are no flats, so chords are
-  # not (techically) correctly spelled, but enharmonically, the pitches are correct
-  # for instance D#maj7 would be spelled via the code as 'D#, G, A#, D' when
-  # the techically correct spelling would be D# F## (or Fx) A# C##.
-  # again, the two spellings are enharmonically equivalent, meaning they correspond
-  # to the same pitches. an additional note is that Eb maj7 is probably much more
-  # common, and is also enharmonically equivalent to D#maj7
-
-  # TODO implement flats!
   # TODO implement math for generating a pitch in Hz
   # TODO implement octave functionality
 
-  def self.tones
-    ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
+  def self.tone_book
+    {
+        "B#"  => 0,  "C"  => 0,   "Dbb" => 0,
+        "B##" => 1,  "C#" => 1,   "Db" =>  1,
+        "C##" => 2,  "D"  => 2,   "Ebb" => 2,
+        "D#"  => 3,  "Eb" => 3,   "Fbb" => 3,
+        "D##" => 4,  "E"  => 4,   "Fb"  => 4,
+        "E#"  => 5,  "F"  => 5,   "Gbb" => 5,
+        "E##" => 6,  "F#" => 6,   "Gb"  => 6,
+        "F##" => 7,  "G"  => 7,   "Abb" => 7,
+        "G#"  => 8,  "Ab" => 8,
+        "G##" => 9,  "A"  => 9,   "Bbb" => 9,
+        "A#"  => 10, "Bb" => 10,  "Cbb" => 10,
+        "A##" => 11, "B"  => 11,  "Cb"  => 11
+    }
   end
 
 end
