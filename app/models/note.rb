@@ -1,7 +1,5 @@
 class Note
 
-  # TODO implement math for generating a pitch in Hz
-
   def initialize (letter, accidental, octave)
     # Reference: Middle C (C4) has a pitch_index of 48
     accidentals = {
@@ -27,6 +25,6 @@ class Note
     @letter = letter
     @accidental = accidental
     @pitch_index = pitch_index
-    @frequency = 2 ** ( (pitch_index-69) / 12) * 440
+    @frequency = (2 ** ( (pitch_index-69.0) / 12.0)) * 440
   end
 end
