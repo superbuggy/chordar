@@ -13,6 +13,7 @@ def new
 end
 
 # TODO add ability to edit chords
+# what were you thinking about for this edit functionality? Delete all child notes and recreate?
 def edit
   @chord = Chord.find(params[:id])
 end

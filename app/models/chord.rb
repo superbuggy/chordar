@@ -1,6 +1,8 @@
 # will only construct chords using sharps! see note.rb comments for detailed
 # explanation
 class Chord < ActiveRecord::Base
+  # In the same way you determine half step distances, you could also program in to evaluate letter differences as well, to do flats and weird chords like d#
+  # also sick commentings thats dope
   has_many :notes
 
   def voices
@@ -9,6 +11,7 @@ class Chord < ActiveRecord::Base
 
   # each chord type, represented in the string and the corresponding number
   # of half-steps, relative to the root, for each voice of the chord
+  # in fact, you might be able to code letter distances as hashes along with the half step distances in each of the chord types.
   def self.schemata
     {
       "major" =>      [4, 7],
@@ -42,6 +45,8 @@ class Chord < ActiveRecord::Base
 
     # instantiates the notes using
     note_indexes_for_building_chord.each do |note_index|
+      # you should use an association helper here to create the notes. self.notes.create() then you don't have to pass in chord id
+      # indentations a little off here as wel.
             Note.create( name: Note.tones[note_index],
                          letter: Note.tones[note_index][0],
                          accidental: Note.tones[note_index][1],

@@ -1,7 +1,7 @@
 <h2>Spell a New Chord</h2>
 <p>
 <%= form_for @chord do |f| %>
-
+  <!-- probably best to instantiate this variable in your controller and just pass in an instance variable in the options_for_select-->
   <% notes_array = Note.tones.map { |note| [ note, note ] } %>
   <%= f.select( :root_note, options_for_select(notes_array), {},
       { :class => "embiggen-form" } ) %>
