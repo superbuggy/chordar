@@ -1,22 +1,15 @@
-# will only construct chords using sharps! see note.rb comments for detailed
-# explanation
 class Chord < ActiveRecord::Base
-  has_many :notes
+
+  def initialize
+    @notes = []
+  end
+
+  def notes
+    @notes
+  end
 
   def voices
     self.notes.length
-  end
-
-  def self.letter_tones
-    {
-      "C" => 0,
-      "D" => 2,
-      "E" => 4,
-      "F" => 5,
-      "G" => 7,
-      "A" => 9,
-      "B" => 11
-    }
   end
 
   # each chord type, represented in the string and the corresponding number
@@ -37,7 +30,9 @@ class Chord < ActiveRecord::Base
   # this method is to be called after a chord has been saved, and creates Note
   # objects that make up the chord
   def construct_chord
-
+    self.notes.push( Note.new("C","n",5) )
+    self.notes.push( Note.new("E","n",5) )
+    self.notes.push( Note.new("G","n",5) )
   end
 
 end

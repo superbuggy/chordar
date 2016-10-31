@@ -1,5 +1,5 @@
 class Note
-
+  attr_reader :letter, :pitch_index, :octave, :accidental, :frequency
   def initialize (letter, accidental, octave)
     # Reference: Middle C (C4) has a pitch_index of 48
     accidentals = {
@@ -24,7 +24,8 @@ class Note
 
     @letter = letter
     @accidental = accidental
+    @octave = octave
     @pitch_index = pitch_index
-    @frequency = (2 ** ( (pitch_index-69.0) / 12.0)) * 440
+    @frequency = 2 ** ( ( pitch_index - 69.0 ) / 12.0 )  * 440
   end
 end
