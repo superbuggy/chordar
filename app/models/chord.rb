@@ -1,13 +1,5 @@
 class Chord < ActiveRecord::Base
 
-  def initialize
-    @notes = []
-  end
-
-  def notes
-    @notes
-  end
-
   def voices
     self.notes.length
   end
@@ -27,12 +19,38 @@ class Chord < ActiveRecord::Base
     }
   end
 
-  # this method is to be called after a chord has been saved, and creates Note
-  # objects that make up the chord
-  def construct_chord
-    self.notes.push( Note.new("C","n",5) )
-    self.notes.push( Note.new("E","n",5) )
-    self.notes.push( Note.new("G","n",5) )
+  def to_pitch note_string
+    tone_letters = {
+      "C": 0,
+      "D": 2,
+      "E": 4,
+      "F": 5,
+      "G": 7,
+      "A": 9,
+      "B": 11
+    }
+
+    accidentals = {
+      "bb": -2,
+      "b": -1,
+      "n": 0,
+      "#": 1,
+      "##": 2
+    }
+    accidental = note_string.split(/(\d+)/)[0].split(/(##|#|bb|b|n)/)[1]
+    note_letter = note_string.split(/(\d+)/)[0].split(/(##|#|bb|b|n)/)[0]
+    accidental ? "" : accidental = "n"
+    # puts "#{accidental} #{note_letter}"
+    octave = note_string.split(/(\d+)/)[1].to_i
+    note_rel_pitch = tone_letters[note_letter.to_sym].to_i
+    note_abs_pitch = note_rel_pitch + 12 * octave + accidentals[accidental.to_sym].to_i
   end
+
+  # objects that make up the chord
+  def get_pitches
+    notes_array = self.notes.split(",")
+    notes_array.map{ |note| to_pitch note }
+  end
+
 
 end

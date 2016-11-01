@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425135510) do
+ActiveRecord::Schema.define(version: 20161101184501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20160425135510) do
   create_table "chords", force: :cascade do |t|
     t.integer  "voices"
     t.string   "quality"
-    t.string   "root_note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "notes"
   end
 
 end
