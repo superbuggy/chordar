@@ -1,7 +1,7 @@
 class Chord < ActiveRecord::Base
 
   def voices
-    self.notes.length
+    self.notes.split(",").length
   end
 
   # each chord type, represented in the string and the corresponding number
@@ -37,20 +37,29 @@ class Chord < ActiveRecord::Base
       "#": 1,
       "##": 2
     }
-    accidental = note_string.split(/(\d+)/)[0].split(/(##|#|bb|b|n)/)[1]
-    note_letter = note_string.split(/(\d+)/)[0].split(/(##|#|bb|b|n)/)[0]
+
+    note_letter = note_string[0]
+    accidental = note_string.split(/(\d+)/)[0].split(/(##|#|bb|b)/)[1]
+    # if split returns null
     accidental ? "" : accidental = "n"
-    # puts "#{accidental} #{note_letter}"
+
     octave = note_string.split(/(\d+)/)[1].to_i
     note_rel_pitch = tone_letters[note_letter.to_sym].to_i
     note_abs_pitch = note_rel_pitch + 12 * octave + accidentals[accidental.to_sym].to_i
   end
 
-  # objects that make up the chord
+  # returns midi note numbers of pitches as array
   def get_pitches
     notes_array = self.notes.split(",")
     notes_array.map{ |note| to_pitch note }
   end
 
+  # returns frequencies of notes in chord as array
+  def get_freqs
+    midi_notes_nums = get_pitches
+    midi_notes_nums.map do |midi_note_num|
+      2 ** ( ( midi_note_num - 69.0 ) / 12.0 )  * 440
+    end
+  end
 
 end
