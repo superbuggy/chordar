@@ -1,12 +1,6 @@
 class Chord < ActiveRecord::Base
 
-  def voices
-    self.notes.split(",").length
-  end
-
-  # each chord type, represented in the string and the corresponding number
-  # of half-steps, relative to the root, for each voice of the chord
-  def self.schemata
+  def self.qualities
     {
       "major" =>      [4, 7],
       "minor" =>      [3, 7],
@@ -17,6 +11,26 @@ class Chord < ActiveRecord::Base
       "dom7" =>       [4, 7, 10],
       "min-maj7" =>   [3, 7, 11]
     }
+  end
+
+  def voices
+    self.notes.split(",").length
+  end
+
+  def intervals
+    root = self.get_pitches[0]
+    self.get_pitches.each_cons(2).map { |a,b| b - root }
+  end
+
+  def quality
+    qualities = Chord.qualities
+    return qualities.each do |k, v|
+      if self.intervals == v
+        return k
+      else
+        return "other"
+      end
+    end
   end
 
   def to_pitch note_string
