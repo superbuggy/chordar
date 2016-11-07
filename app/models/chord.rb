@@ -24,9 +24,9 @@ class Chord < ActiveRecord::Base
 
   def quality
     qualities = Chord.qualities
-    return qualities.each do |k, v|
-      if self.intervals == v
-        return k
+    return qualities.each do |quality, intervals_array|
+      if self.intervals == intervals_array
+        return quality
       else
         return "other"
       end
