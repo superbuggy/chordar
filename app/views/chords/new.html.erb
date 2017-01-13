@@ -1,15 +1,7 @@
 <h2>Spell a New Chord</h2>
-<p>
+
 <%= form_for @chord do |f| %>
-
-  <% notes_array = Note.tone_book.keys.map { |note| [ note, note ] } %>
-  <%= f.select( :root_note, options_for_select(notes_array), {},
-      { :class => "embiggen-form" } ) %>
-
-  <% chord_qualities_for_select = Chord.schemata.keys.map { |schema| [ schema, schema ] } %>
-  <%= f.select( :quality, options_for_select(chord_qualities_for_select), {},
-      { :class => "embiggen-form" } ) %>
-
-  <%= f.submit :class => "embiggen-form"  %>
+<%= select_tag :letter, options_for_select @letters.map {|ltr| [ltr, ltr]} %>
+<%= select_tag :accidental, options_for_select @accidentals.map {|acd| [acd, acd] } %>
+<%= f.submit :class => "embiggen-form"  %>
 <%end%>
-</p>

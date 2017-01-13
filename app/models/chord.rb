@@ -1,4 +1,10 @@
 class Chord < ActiveRecord::Base
+  after_initialize :create_chord
+  attr_reader :notes
+
+  def create_chord
+    self.root_note
+  end
 
   def self.qualities
     {
@@ -17,6 +23,10 @@ class Chord < ActiveRecord::Base
     self.notes.split(",").length
   end
 
+  def get_skills
+    self.skills.split(", ")
+  end
+
   def intervals
     root = self.get_pitches[0]
     self.get_pitches.each_cons(2).map { |a,b| b - root }
@@ -33,47 +43,6 @@ class Chord < ActiveRecord::Base
     end
   end
 
-  def to_pitch note_string
-    tone_letters = {
-      "C": 0,
-      "D": 2,
-      "E": 4,
-      "F": 5,
-      "G": 7,
-      "A": 9,
-      "B": 11
-    }
 
-    accidentals = {
-      "bb": -2,
-      "b": -1,
-      "n": 0,
-      "#": 1,
-      "##": 2
-    }
-
-    note_letter = note_string[0]
-    accidental = note_string.split(/(\d+)/)[0].split(/(##|#|bb|b)/)[1]
-    # if split returns null
-    accidental ? "" : accidental = "n"
-
-    octave = note_string.split(/(\d+)/)[1].to_i
-    note_rel_pitch = tone_letters[note_letter.to_sym].to_i
-    note_abs_pitch = note_rel_pitch + 12 * octave + accidentals[accidental.to_sym].to_i
-  end
-
-  # returns midi note numbers of pitches as array
-  def get_pitches
-    notes_array = self.notes.split(",")
-    notes_array.map{ |note| to_pitch note }
-  end
-
-  # returns frequencies of notes in chord as array
-  def get_freqs
-    midi_notes_nums = get_pitches
-    midi_notes_nums.map do |midi_note_num|
-      2 ** ( ( midi_note_num - 69.0 ) / 12.0 )  * 440
-    end
-  end
 
 end

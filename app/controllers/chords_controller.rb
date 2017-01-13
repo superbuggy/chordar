@@ -10,11 +10,9 @@ end
 
 def new
   @chord = Chord.new
-end
-
-# TODO add ability to edit chords
-def edit
-  @chord = Chord.find(params[:id])
+  @letters = Note.letter_tones.keys
+  @accidentals = Note.accidentals.keys
+  @octaves = (0..8).to_a
 end
 
 def create
@@ -27,6 +25,12 @@ def create
     render 'new'
   end
 end
+
+# TODO add ability to edit chords
+def edit
+  @chord = Chord.find(params[:id])
+end
+
 
 # TODO add ability to edit chords
 def update

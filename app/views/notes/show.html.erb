@@ -1,8 +1,0 @@
-<h2><%= "#{@note.name}"%></h2>
-<nav>
-    <%= link_to "View Notes", notes_path %>
-    <%= link_to "View Chords", chords_path %>
-</nav>
-<!-- TODO implement math for generating a pitch in Hz -->
-<p> <%= "Frequency: #{@note.frequency}" %> </p>
-<p> <%= "Octave: #{@note.octave}" %> </p>
